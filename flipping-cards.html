@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flipping Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Roboto Slab", serif;
+      background: radial-gradient(circle, #39754b 24%, #194e2c 80%, #0a361c 100%);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #header {
+      border-bottom: 4px solid #f2d363;
+      height: 55px;
+    }
+    /* Contenedor principal con dos paneles */
+    #board {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    /* Cada panel se posiciona de forma relativa para ubicar elementos absolutos en su interior */
+    .panel {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+    /* Títulos dinámicos */
+    .panel h2 {
+      text-align: center;
+      border-bottom: 1px solid #f2d363;
+      color: #f2d363;
+      margin: 0;
+      padding: 10px;
+      font-family: 'Antonio', sans-serif;
+      letter-spacing: 0.1em;
+      font-weight: 300;
+    }
+    /* Contenedor de tarjetas */
+    .cards-container {
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 10px;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+    /* Estilos de las tarjetas */
+    .card {
+      width: 100px;
+      height: 140px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      position: relative;
+      border-radius: 10px;
+    }
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+    /* Caras de la tarjeta */
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-weight: bold;
+      padding: 5px;
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-y: auto;
+      box-shadow: 0px 2px 2px rgba(0,0,0,0.5);
+    }
+    .card-front span {
+      display: inline-block;
+      border-top: 1px solid #f2d363;
+      border-bottom: 1px solid #f2d363;
+    }
+    .card-face::before,
+    .card-face::after {
+      content: "✦";
+      font-size: 13px;
+    }
+    .card-front {
+      color: #f2d363;
+      border: 2px solid #f2d363;
+      font-size: 25px;
+    }
+    .card-back {
+      background-color: #ece8da;
+      color: #333;
+      transform: rotateY(180deg);
+      font-size: 12px;
+      overflow: hidden;
+    }
+    /* Botones laterales de toggle */
+    .side-toggle,
+    .side-options button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      z-index: 20;
+      font-size: 16px;
+    }
+      .side-toggle {
+      position: absolute;
+      top: 10px;
+    }
+    .side-options button {
+      width: 100%;
+    }
+    .side-toggle:hover,
+    .side-options button:hover {
+      background-color: #0056b3;
+    }
+    /* Botón para panel izquierdo: esquina superior izquierda */
+    .left-toggle {
+      left: 10px;
+    }
+    /* Botón para panel derecho: esquina superior derecha */
+    .right-toggle {
+      right: 10px;
+    }
+    #side-options-left,
+    #side-options-right {
+      position: absolute;
+      top: 0;
+      width: 300px;
+      height: 100%;
+      background-color: #194e2c;
+      color: #333;
+      padding: 10px;
+      box-sizing: border-box;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+    ::placeholder {
+        color: #fff;
+    }
+    /* Panel lateral de opciones para el panel izquierdo */
+    #side-options-left {
+      left: 0;
+      transform: translateX(-100%);
+      border-right: 4px solid #f2d363;
+    }
+    /* Panel lateral de opciones para el panel derecho */
+    #side-options-right {
+      right: 0;
+      transform: translateX(100%);
+      border-left: 4px solid #f2d363;
+    }
+    /* Cuando el panel tiene la clase active-options se muestra el panel lateral */
+    #panel-left.active-options #side-options-left {
+      transform: translateX(0);
+    }
+    #panel-right.active-options #side-options-right {
+      transform: translateX(0);
+    }
+    /* Estilos para el textarea del panel lateral */
+    .side-options textarea {
+      width: 100%;
+      height: calc(100% - 50px);
+      resize: none;
+      border: 1px solid #f2d363;
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 14px;
+      margin-bottom: 5px;
+      background: none;
+      font-family: "Roboto Slab", serif;
+      font-size: 1.1em;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div id="header">
+    <button id="toggle-left" class="side-toggle left-toggle" onclick="toggleOptions('left')">Configurar tarjetas</button>
+    <button id="toggle-right" class="side-toggle right-toggle" onclick="toggleOptions('right')">Configurar tarjetas</button>
+  </div>
+  <div id="board">
+    <!-- Panel Izquierdo -->
+    <div class="panel" id="panel-left">
+      <h2 id="panelLeftTitle">Panel Izquierdo</h2>
+      <div class="cards-container" id="cards-left"></div>
+      <div class="side-options" id="side-options-left">
+        <textarea id="optionsLeftText" placeholder="Haz click en esta caja de texto, escribe el texto de cada tarjeta en un nuevo renglón y actualiza los datos.&#10; &#10;Ten presente que el primer renglón se usará como título del panel."></textarea>
+        <button onclick="updateOptions('left')">Actualizar Opciones</button>
+      </div>
+    </div>
+    <!-- Panel Derecho -->
+    <div class="panel" id="panel-right">
+      <h2 id="panelRightTitle">Panel Derecho</h2>
+      <div class="cards-container" id="cards-right"></div>
+      <div class="side-options" id="side-options-right">
+        <textarea id="optionsRightText" placeholder="Haz click en esta caja de texto, escribe el texto de cada tarjeta en un nuevo renglón y actualiza los datos.&#10; &#10;Ten presente que el primer renglón se usará como título del panel."></textarea>
+        <button onclick="updateOptions('right')">Actualizar Opciones</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Creamos el objeto de audio para el efecto de sonido
+    const flipSound = new Audio("card-flip.mp4");
+
+    // Objeto para almacenar las opciones de cada panel
+    const optionsData = {
+      left: [],
+      right: []
+    };
+
+    // Paleta de colores
+    const colorPalette = [
+      '#8b7b3b', '#9a743b', '#aa6940', '#b5614c', '#af5863', '#9d4f8c',
+      '#8c61c2', '#7171c6', '#5874a8', '#407a8c', '#327f66', '#48874f',
+      '#608549', '#7a8140', '#9c4f7a', '#447c9c'
+    ];
+
+    // Función de barajado (Fisher-Yates)
+    function shuffle(array) {
+      let currentIndex = array.length, randomIndex;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      }
+      return array;
+    }
+
+    // Genera un orden de colores sin repetir hasta agotar la paleta, luego se rebaraja
+    function generateColorOrder(numCards) {
+      const order = [];
+      while (order.length < numCards) {
+        const shuffledPalette = shuffle([...colorPalette]);
+        order.push(...shuffledPalette);
+      }
+      return order.slice(0, numCards);
+    }
+
+    // Crea las tarjetas de un panel a partir de las opciones
+    function createCards(panel) {
+      const container = document.getElementById(panel === 'left' ? 'cards-left' : 'cards-right');
+      container.innerHTML = ""; // Limpiar contenedor
+      const panelOptions = optionsData[panel];
+
+      // Barajamos las opciones para asignar textos de forma aleatoria
+      const shuffledOptions = shuffle([...panelOptions]);
+      const colorOrder = generateColorOrder(shuffledOptions.length);
+
+      shuffledOptions.forEach((optionText, i) => {
+        const color = colorOrder[i];
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.setAttribute("data-number", i + 1);
+
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-face card-front" style="background-color: ${color};">
+              <span>${i + 1}</span>
+            </div>
+            <div class="card-face card-back">
+              <span>${optionText}</span>
+            </div>
+          </div>
+        `;
+        card.addEventListener("click", () => {
+          card.classList.toggle("flipped");
+          // Reiniciamos el sonido y lo reproducimos
+          flipSound.currentTime = 0;
+          flipSound.play();
+        });
+        container.appendChild(card);
+      });
+    }
+
+    /**
+     * Actualiza las opciones y el título del panel.
+     * La primera línea del textarea se usa como nombre del panel,
+     * y el resto como opciones para las tarjetas.
+     */
+    function updateOptions(panel) {
+      const textareaId = panel === 'left' ? 'optionsLeftText' : 'optionsRightText';
+      const titleId = panel === 'left' ? 'panelLeftTitle' : 'panelRightTitle';
+      const textarea = document.getElementById(textareaId);
+      const lines = textarea.value.split('\n').map(line => line.trim()).filter(line => line !== "");
+
+      if (lines.length > 0) {
+        document.getElementById(titleId).textContent = lines[0];
+        const options = lines.slice(1);
+        optionsData[panel] = options;
+        createCards(panel);
+      } else {
+        document.getElementById(titleId).textContent = panel === 'left' ? "Panel Izquierdo" : "Panel Derecho";
+        optionsData[panel] = [];
+        createCards(panel);
+      }
+    }
+
+    // Función para mostrar u ocultar el panel lateral de opciones y actualizar el texto del botón
+    function toggleOptions(panel) {
+      const panelContainer = panel === 'left' ? document.getElementById("panel-left") : document.getElementById("panel-right");
+      panelContainer.classList.toggle("active-options");
+
+      if (panel === 'left') {
+        const btn = document.getElementById("toggle-left");
+        btn.textContent = panelContainer.classList.contains("active-options")
+          ? "Cerrar configuración"
+          : "Configurar tarjetas";
+      } else {
+        const btn = document.getElementById("toggle-right");
+        btn.textContent = panelContainer.classList.contains("active-options")
+          ? "Cerrar configuración"
+          : "Configurar tarjetas";
+      }
+    }
+  </script>
+</body>
+</html>
