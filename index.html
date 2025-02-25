@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Roboto Slab", serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: rgb(70,178,100);
+            background: radial-gradient(circle, #39754b 24%, #194e2c 80%, #0a361c 100%);
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 1px solid #f2d363;
+            color: #f2d363;
+            margin: 0;
+            padding: 10px;
+            font-family: 'Antonio', sans-serif;
+            letter-spacing: 0.1em;
+            font-weight: 300;
+        }
+        h1::before {
+            content: "✦ ";
+        }
+        h1::after {
+            content: " ✦";
+        }
+        h1::before,
+        h1::after {
+            font-size: 13px;
+            vertical-align: middle;
+        }
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        canvas {
+            border: 8px solid #f2d363;
+            border-radius: 50%;
+            position: relative;
+            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.3));
+        }
+        #logo-ksc {
+            position: absolute;
+            left: 50px;
+            bottom: 50px;
+        }
+        #logo-chubb {
+            position: absolute;
+            right: 50px;
+            bottom: 50px;
+        }
+        #container > a {
+            display: block;
+            width: 200px;
+            height: 240px;
+            border: 1px solid #f2d363;
+            border-radius: 5px;
+            margin: 10px;
+            color: #f2d363;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>AFTER OFFICE ROYALE</h1>
+    <div id="container">
+        <a>
+            <img>
+            <h2>Ruoulette</h2>
+        </a>
+        <a>
+            <img>
+            <h2>Flipping cards</h2>
+        </a>
+        <a>
+            <img>
+            <h2>Jackpot</h2>
+        </a>
+    </div>
+
+    <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30" alt=""/></div>
+    <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30" alt=""/></div>
+
+    
+</body>
+</html>
