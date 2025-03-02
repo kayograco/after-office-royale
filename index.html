@@ -16,7 +16,6 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background: rgb(70,178,100);
             background: radial-gradient(circle, #39754b 24%, #194e2c 80%, #0a361c 100%);
         }
         h1 {
@@ -34,21 +33,40 @@
         h1::after {
             content: " ✦";
         }
-        h1::before,
-        h1::after {
-            font-size: 13px;
-            vertical-align: middle;
-        }
         #container {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        canvas {
-            border: 8px solid #f2d363;
-            border-radius: 50%;
-            position: relative;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.3));
+        #container > a {
+            display: block;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        #container > a > div {
+            margin: 10px;
+            border: 3px solid #f2d363;
+            border-radius: 13px;
+            color: #f2d363;
+            cursor: pointer;
+            padding: 5px;
+            font-family: 'Antonio', sans-serif;
+        }
+        #container img {
+            border: 1px solid #f2d363;
+            border-radius: 5px;
+        }
+        #description {
+            margin-top: 20px;
+            padding: 10px;
+            color: #f2d363;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: 300;
+            min-height: 40px; /* Para que no salte cuando cambie el contenido */
+            border-top: 1px solid #f2d363;
+            max-width: 600px;
+            height: 100px;
         }
         #logo-ksc {
             position: absolute;
@@ -60,42 +78,102 @@
             right: 50px;
             bottom: 50px;
         }
-        #container > a {
-            display: block;
-            border: 3px solid #f2d363;
-            border-radius: 5px;
-            margin: 10px;
-            color: #f2d363;
-            text-align: center;
-            cursor: pointer;
-            padding: 5px;
+        @media only screen and (max-width: 600px) {
+            body {
+                justify-content: flex-start;
+            }
+            #container {
+                flex-direction: column;
+                width: 100%;
+            }
+            a {
+                width: 100%;
+            }
+            #container > a > div {
+                display: flex;
+            }
+            #container > a p {
+                font-family: "Roboto Slab", serif;
+                font-weight: 300;
+            }
+            #container a img {
+                width: 100px;;
+            }
+            h2,p {
+                margin: 0 0 0 10px;
+            }
+            #description {
+                display: none;
+            }
+            #logo-ksc {
+                left: 20px;
+            }
+            #logo-chubb {
+                right: 20px;
+            }
         }
-        #container img {
-            border: 1px solid #f2d363;
-            border-radius: 5px;
+        @media only screen and (min-width: 601px) {
+            #container > a:hover {
+                transform: scale(1.1);
+            }
+            #container > a:hover > div {
+                background-color: #007bff;
+                color: #fff;
+            }
+            #container > a > div {
+                text-align: center;
+            }
+            #container > a p {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <h1>AFTER OFFICE ROYALE</h1>
     <div id="container">
-        <a href="roulette.html">
-            <img src="icon-roulette.png" width="200" style="width: 200px; height: auto;">
-            <h2>Ruoulette</h2>
+        <a href="roulette.html" onmouseover="showDescription('Selecciona una opción al azar. Útil para escoger participantes en actividades por turnos.')" onmouseout="clearDescription()">
+            <div>
+                <img src="icon-roulette.png" width="200">
+                <div>
+                    <h2>ROULETTE</h2>
+                    <p class="description">Selecciona una opción al azar. Útil para escoger participantes en actividades por turnos.</p>
+                </div>
+            </div>
         </a>
-        <a href="flipping-cards.html">
-            <img src="icon-flipping.png" width="200" style="width: 200px; height: auto;">
-            <h2>Flipping cards</h2>
+        <a href="flipping-cards.html" onmouseover="showDescription('Haz match o elige entre dos opciones. Útil para actividades dare or truth')" onmouseout="clearDescription()">
+            <div>
+                <img src="icon-flipping.png" width="200">
+                <div>
+                    <h2>FLIPPING CARDS</h2>
+                    <p class="description">Haz match o elige entre dos opciones. Útil para actividades dare or truth.</p>
+                </div>
+            </div>
         </a>
-        <a href="slot-machine.html">
-            <img src="icon-slotmachine.png" width="200" style="width: 200px; height: auto;">
-            <h2>Slot machine</h2>
+        <a href="slot-machine.html" onmouseover="showDescription('Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio - Redacta - Email - Bienvenida.')" onmouseout="clearDescription()">
+            <div>
+                <img src="icon-slotmachine.png" width="200">
+                <div>
+                    <h2>SLOT MACHINE</h2>
+                    <p class="description">Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio - Redacta - Email - Bienvenida.</p>
+                </div>
+            </div>
         </a>
     </div>
 
-    <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30" alt=""/></div>
-    <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30" alt=""/></div>
+    <!-- Texto dinámico que muestra la descripción de cada juego -->
+    <div id="description">Pasa el mouse sobre un juego para ver su descripción.</div>
 
-    
+    <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30"></div>
+    <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30"></div>
+
+    <script>
+        function showDescription(text) {
+            document.getElementById("description").innerText = text;
+        }
+        function clearDescription() {
+            document.getElementById("description").innerText = "Pasa el mouse sobre un juego para ver su descripción.";
+        }
+    </script>
 </body>
 </html>
