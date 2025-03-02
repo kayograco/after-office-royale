@@ -13,7 +13,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             height: 100vh;
             margin: 0;
             background: rgb(70,178,100);
@@ -54,10 +53,8 @@
         #inputArea {
             display: flex;
             flex-direction: column;
-            margin-left: 120px;
             border: 4px solid #f2d363;
             border-radius: 10px;
-            width: 350px;
         }
         #inputData {
             height: 300px;
@@ -106,15 +103,17 @@
             z-index: 1;
             filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.3));
         }
+        #footer {
+            width: 100%;
+            padding: 20px 0;
+        }
         #logo-ksc {
-            position: absolute;
-            left: 50px;
-            bottom: 50px;
+            float: left;
+            margin-left: 20px;
         }
         #logo-chubb {
-            position: absolute;
-            right: 50px;
-            bottom: 50px;
+            float: right;
+            margin-right: 10px;
         }
 
         /* Estilos para el modal */
@@ -231,6 +230,39 @@
             font-weight: 100;
             border-bottom: 1px solid #f2d363;
         }
+        @media only screen and (max-width: 600px) {
+            body {
+                justify-content: flex-start;
+            }
+            #container {
+                flex-direction: column;
+            }
+            canvas#wheelCanvas {
+                width: 80% !important;
+                height: 80% !important;
+                margin-bottom: 20px;
+            }
+            div#indicator {
+                top: 0 !important;
+                left: calc(50% - 25px) !important;
+            }
+            #inputArea {
+                margin: 20px;
+            }
+        }
+        @media only screen and (min-width: 601px) {
+            body {
+                justify-content: center;
+            }
+            #inputArea {
+            margin-left: 120px;
+            width: 350px;
+            }
+            #footer {
+                position: absolute;
+                bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -248,9 +280,10 @@
             <button id="updateDataButton">Actualizar Datos</button>
         </div>
     </div>
-
-    <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30" alt=""/></div>
-    <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30" alt=""/></div>
+    <div id="footer">
+        <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30" alt=""/></div>
+        <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30" alt=""/></div>
+    </div>
 
     <!-- Modal para mostrar el dato seleccionado -->
     <div id="modal">
