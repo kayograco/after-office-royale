@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roulette</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: "Roboto Slab", serif;
@@ -15,9 +18,10 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: rgb(70,178,100);
+            background: rgb(70, 178, 100);
             background: radial-gradient(circle, #39754b 24%, #194e2c 80%, #0a361c 100%);
         }
+
         h1 {
             text-align: center;
             border-bottom: 1px solid #f2d363;
@@ -28,34 +32,41 @@
             letter-spacing: 0.1em;
             font-weight: 300;
         }
+
         h1::before {
             content: "✦ ";
         }
+
         h1::after {
             content: " ✦";
         }
+
         h1::before,
         h1::after {
             font-size: 13px;
             vertical-align: middle;
         }
+
         #container {
             display: flex;
             align-items: center;
             justify-content: center;
         }
+
         canvas {
             border: 8px solid #f2d363;
             border-radius: 50%;
             position: relative;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.3));
+            filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.3));
         }
+
         #inputArea {
             display: flex;
             flex-direction: column;
             border: 4px solid #f2d363;
             border-radius: 10px;
         }
+
         #inputData {
             height: 300px;
             padding: 10px;
@@ -72,13 +83,18 @@
             font-size: 1.1em;
             border-radius: 5px;
         }
+
         ::placeholder {
             color: #fff;
-            opacity: 1; /* Firefox */
+            opacity: 1;
+            /* Firefox */
         }
-        ::-ms-input-placeholder { /* Edge 12 -18 */
+
+        ::-ms-input-placeholder {
+            /* Edge 12 -18 */
             color: #f2d363;
         }
+
         #updateDataButton {
             background-color: #007bff;
             color: white;
@@ -90,9 +106,11 @@
             cursor: pointer;
             font-size: 16px;
         }
+
         #updateDataButton:hover {
             background-color: #0056b3;
         }
+
         #indicator {
             width: 0;
             height: 0;
@@ -101,16 +119,19 @@
             border-top: 50px solid #f2d363;
             position: absolute;
             z-index: 1;
-            filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.3));
+            filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.3));
         }
+
         #footer {
             width: 100%;
             padding: 20px 0;
         }
+
         #logo-ksc {
             float: left;
             margin-left: 20px;
         }
+
         #logo-chubb {
             float: right;
             margin-right: 10px;
@@ -129,6 +150,7 @@
             justify-content: center;
             align-items: center;
         }
+
         #modalContent {
             background-color: #39754b;
             padding: 20px;
@@ -139,10 +161,12 @@
             color: #f2d363;
             border: 2px solid #f2d363;
         }
+
         #modalContent p span {
             font-family: 'Antonio', sans-serif;
             font-size: 3em;
         }
+
         #modalContent p hr {
             width: 200px;
             background-color: #f2d363;
@@ -150,19 +174,23 @@
             height: 2px;
             line-height: 0em;
         }
+
         #modalContent p hr::before {
             content: "✦";
             right: 50px;
         }
+
         #modalContent p hr::after {
             content: "✦";
             left: 50px;
         }
+
         #modalContent p hr::before,
         #modalContent p hr::after {
             font-size: 13px;
             position: absolute;
         }
+
         #closeModal {
             position: absolute;
             top: 10px;
@@ -172,9 +200,11 @@
             cursor: pointer;
             color: #f2d363;
         }
+
         #closeModal:hover {
             color: red;
         }
+
         label.check {
             color: #f2d363;
             font-weight: 500;
@@ -183,9 +213,11 @@
             margin-bottom: 0;
             font-size: 1.1em;
         }
+
         .check input {
             display: none;
         }
+
         .check {
             display: block;
             position: relative;
@@ -197,6 +229,7 @@
             -ms-user-select: none;
             user-select: none;
         }
+
         .checkmark {
             position: absolute;
             left: 5px;
@@ -205,14 +238,17 @@
             border: 1px solid #fff;
             border-radius: 5px;
         }
+
         .checkmark:after {
             content: "";
             position: absolute;
             display: none;
         }
-        .check input:checked ~ .checkmark:after {
+
+        .check input:checked~.checkmark:after {
             display: block;
         }
+
         .check .checkmark:after {
             left: 10px;
             top: -7px;
@@ -224,65 +260,81 @@
             -ms-transform: rotate(45deg);
             transform: rotate(45deg);
         }
+
         .descripcion {
             color: #f2d363;
             padding: 0 10px 10px 35px;
             font-weight: 100;
             border-bottom: 1px solid #f2d363;
         }
+
         @media only screen and (max-width: 600px) {
             body {
                 justify-content: flex-start;
             }
+
             #container {
                 flex-direction: column;
             }
+
             canvas#wheelCanvas {
                 width: 80% !important;
                 height: 80% !important;
                 margin-bottom: 20px;
             }
+
             div#indicator {
                 top: 0 !important;
                 left: calc(50% - 25px) !important;
             }
+
             #inputArea {
                 margin: 20px;
             }
         }
+
         @media only screen and (min-width: 601px) {
             body {
                 justify-content: center;
             }
+
             #inputArea {
-            margin-left: 120px;
-            width: 350px;
+                margin-left: 120px;
+                width: 350px;
             }
+
             #footer {
                 position: absolute;
-                bottom: 20px;
+                bottom: 0;
             }
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <div id="indicator"></div>
         <canvas id="wheelCanvas"></canvas>
         <div id="inputArea">
             <h1>RULETA VIRTUAL</h1>
-            <textarea id="inputData" placeholder="Haz click en esta caja de texto, escribe cada opción de la ruleta en un nuevo renglón, actualiza los datos y haz click en la ruleta para hacerla girar."></textarea>
+            <textarea id="inputData"
+                placeholder="Haz click en esta caja de texto, escribe cada opción de la ruleta en un nuevo renglón, actualiza los datos y haz click en la ruleta para hacerla girar."></textarea>
             <label class="check">
                 <input type="checkbox" id="discardSegmentsCheckbox"> Descartar datos seleccionados
                 <span class="checkmark"></span>
             </label>
-            <div class="descripcion">Selecciona esta opción para que los datos seleccionados se excluyan en cada ronda.</div>
+            <div class="descripcion">Selecciona esta opción para que los datos seleccionados se excluyan en cada ronda.
+            </div>
             <button id="updateDataButton">Actualizar Datos</button>
         </div>
     </div>
     <div id="footer">
-        <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30" alt=""/></div>
-        <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30" alt=""/></div>
+        <div id="logo-ksc"><img
+                src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png"
+                width="127" height="30" alt="" /></div>
+        <div id="logo-chubb"><img
+                src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png"
+                width="124" height="30" alt="" /></div>
     </div>
 
     <!-- Modal para mostrar el dato seleccionado -->
@@ -296,26 +348,26 @@
     <script>
         // Creamos un AudioContext global (nota: se debe inicializar con interacción del usuario)
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    
+
         // Función para generar el sonido de clic
         function playClickSound({ frequency = 100, duration = 0.05, volume = 0.5, type = 'square' } = {}) {
             const oscillator = audioCtx.createOscillator();
             const gainNode = audioCtx.createGain();
-    
+
             oscillator.type = type;
             oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
-    
+
             // Inicia el volumen y luego se degrada rápidamente para simular un clic
             gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-    
+
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
-    
+
             oscillator.start();
             oscillator.stop(audioCtx.currentTime + duration);
         }
-    
+
         // Resto del código (sin cambios sustanciales)...
         const canvas = document.getElementById("wheelCanvas");
         const ctx = canvas.getContext("2d");
@@ -326,7 +378,7 @@
         const selectedOptionText = document.getElementById("selectedOptionText");
         const indicator = document.getElementById("indicator");
         const discardSegmentsCheckbox = document.getElementById("discardSegmentsCheckbox");
-    
+
         const dpr = window.devicePixelRatio || 1;
         const size = 600;
         canvas.width = size * dpr;
@@ -334,18 +386,18 @@
         canvas.style.width = `${size}px`;
         canvas.style.height = `${size}px`;
         ctx.scale(dpr, dpr);
-    
+
         let angle = 0;
         let isSpinning = false;
         let segments = [];
-    
+
         const colorMap = {};
         const availableColors = [
-            '#8b7b3b', '#9a743b', '#aa6940', '#b5614c', '#af5863', '#9d4f8c', '#8c61c2', 
+            '#8b7b3b', '#9a743b', '#aa6940', '#b5614c', '#af5863', '#9d4f8c', '#8c61c2',
             '#7171c6', '#5874a8', '#407a8c', '#327f66', '#48874f', '#608549', '#7a8140'
         ];
         let remainingColors = [...availableColors];
-    
+
         function getRandomColor() {
             if (remainingColors.length === 0) {
                 remainingColors = [...availableColors];
@@ -355,13 +407,13 @@
             remainingColors.splice(randomIndex, 1);
             return color;
         }
-    
+
         const segmentAngle = () => 2 * Math.PI / segments.length;
         let selectedSegmentIndex = null;
-        
+
         // Variable para controlar el índice del último "clic" sonoro
         let lastSoundIndex = 0;
-    
+
         function updateSegments() {
             const data = inputData.value.trim().split('\n');
             segments = data.filter(item => !item.trim().startsWith('-')).map(item => item.trim());
@@ -372,7 +424,7 @@
             });
             drawWheel();
         }
-    
+
         function drawWheel() {
             const totalSegments = segments.length;
             const anglePerSegment = segmentAngle();
@@ -380,7 +432,7 @@
             ctx.save();
             ctx.translate(canvas.width / (2 * dpr), canvas.height / (2 * dpr));
             ctx.rotate(angle);
-    
+
             for (let i = 0; i < totalSegments; i++) {
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
@@ -390,7 +442,7 @@
                 ctx.lineWidth = 4;
                 ctx.fill();
                 ctx.stroke();
-    
+
                 ctx.save();
                 ctx.rotate((i + 0.5) * anglePerSegment);
                 ctx.translate(canvas.width / (2.2 * dpr), 12);
@@ -400,35 +452,35 @@
                 ctx.fillText(segments[i], 0, 0);
                 ctx.restore();
             }
-    
+
             const circleRadius = 20;
             ctx.beginPath();
             ctx.arc(0, 0, circleRadius, 0, 2 * Math.PI);
             ctx.fillStyle = '#f2d363';
             ctx.fill();
             ctx.restore();
-    
+
             const indicatorPosition = canvas.getBoundingClientRect();
             indicator.style.top = `${indicatorPosition.top - 5}px`;
             indicator.style.left = `${indicatorPosition.left + size / 2 - 15}px`;
         }
-    
+
         function spinWheel() {
             if (isSpinning) return;
-    
+
             const maxSpeed = 0.1 + Math.random() * 0.2;
             let spinTime = 0;
             const spinDuration = Math.random() * 3000 + 2000;
             let currentSpeed = 0;
             let isAccelerating = true;
             isSpinning = true;
-    
+
             // Reiniciamos el contador del sonido basado en el ángulo actual
             lastSoundIndex = Math.floor((angle + Math.PI / 2) / segmentAngle());
-    
+
             function rotateWheel() {
                 spinTime += 30;
-    
+
                 if (isAccelerating) {
                     currentSpeed += 0.01;
                     if (currentSpeed >= maxSpeed) {
@@ -443,9 +495,9 @@
                         return;
                     }
                 }
-    
+
                 angle += currentSpeed;
-    
+
                 // Calcula el índice actual basado en el ángulo (ajustado para alinear con el indicador)
                 const currentSoundIndex = Math.floor((angle + Math.PI / 2) / segmentAngle());
                 if (currentSoundIndex > lastSoundIndex) {
@@ -453,30 +505,30 @@
                     playClickSound({ frequency: 800, duration: 0.05, volume: 0.5, type: 'square' });
                     lastSoundIndex = currentSoundIndex;
                 }
-    
+
                 drawWheel();
                 requestAnimationFrame(rotateWheel);
             }
-    
+
             function selectSegment() {
-    const totalSegments = segments.length;
-    const adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
-    selectedSegmentIndex = Math.floor(totalSegments - (adjustedAngle / segmentAngle()) % totalSegments) % totalSegments;
+                const totalSegments = segments.length;
+                const adjustedAngle = (angle + Math.PI / 2) % (2 * Math.PI);
+                selectedSegmentIndex = Math.floor(totalSegments - (adjustedAngle / segmentAngle()) % totalSegments) % totalSegments;
 
-    // Obtener el color del segmento seleccionado
-    const selectedColor = colorMap[segments[selectedSegmentIndex]];
+                // Obtener el color del segmento seleccionado
+                const selectedColor = colorMap[segments[selectedSegmentIndex]];
 
-    // Cambiar el fondo del modal con el color del segmento seleccionado
-    const modalContent = document.getElementById("modalContent");
-    modalContent.style.backgroundColor = selectedColor;
+                // Cambiar el fondo del modal con el color del segmento seleccionado
+                const modalContent = document.getElementById("modalContent");
+                modalContent.style.backgroundColor = selectedColor;
 
-    selectedOptionText.innerHTML = "La suerte ha elegido<br><hr><span>" + segments[selectedSegmentIndex] + "</span>";
-    modal.style.display = "flex";
+                selectedOptionText.innerHTML = "La suerte ha elegido<br><hr><span>" + segments[selectedSegmentIndex] + "</span>";
+                modal.style.display = "flex";
             }
-    
+
             rotateWheel();
         }
-    
+
         function removeSelectedSegment() {
             if (selectedSegmentIndex !== null && discardSegmentsCheckbox.checked) {
                 let lines = inputData.value.split('\n');
@@ -491,7 +543,7 @@
                 drawWheel();
             }
         }
-    
+
         closeModal.addEventListener("click", () => {
             modal.style.display = "none";
             removeSelectedSegment();
@@ -502,12 +554,13 @@
                 removeSelectedSegment();
             }
         });
-    
+
         updateDataButton.addEventListener("click", updateSegments);
         canvas.addEventListener("click", spinWheel);
-    
+
         drawWheel();
     </script>
-    
+
 </body>
+
 </html>
