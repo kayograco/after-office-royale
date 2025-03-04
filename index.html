@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>After Office Royale</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: "Roboto Slab", serif;
@@ -18,6 +21,7 @@
             margin: 0;
             background: radial-gradient(circle, #39754b 24%, #194e2c 80%, #0a361c 100%);
         }
+
         h1 {
             text-align: center;
             border-bottom: 1px solid #f2d363;
@@ -27,23 +31,28 @@
             letter-spacing: 0.1em;
             font-weight: 300;
         }
+
         h1::before {
             content: "✦ ";
         }
+
         h1::after {
             content: " ✦";
         }
+
         #container {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        #container > a {
+
+        #container>a {
             display: block;
             transition: all 0.2s;
             text-decoration: none;
         }
-        #container > a > div {
+
+        #container>a>div {
             margin: 10px;
             border: 3px solid #f2d363;
             border-radius: 13px;
@@ -52,10 +61,12 @@
             padding: 5px;
             font-family: 'Antonio', sans-serif;
         }
+
         #container img {
             border: 1px solid #f2d363;
             border-radius: 5px;
         }
+
         #description {
             margin-top: 20px;
             padding: 10px;
@@ -63,99 +74,136 @@
             font-size: 1.2em;
             text-align: center;
             font-weight: 300;
-            min-height: 40px; /* Para que no salte cuando cambie el contenido */
+            min-height: 40px;
+            /* Para que no salte cuando cambie el contenido */
             border-top: 1px solid #f2d363;
             max-width: 600px;
             height: 100px;
         }
+
+        #footer {
+            width: 100%;
+            padding: 20px 0;
+        }
+
         #logo-ksc {
-            position: absolute;
-            left: 50px;
-            bottom: 50px;
+            float: left;
+            margin-left: 20px;
         }
+
         #logo-chubb {
-            position: absolute;
-            right: 50px;
-            bottom: 50px;
+            float: right;
+            margin-right: 10px;
         }
+
         @media only screen and (max-width: 600px) {
             body {
                 justify-content: flex-start;
             }
+
             #container {
                 flex-direction: column;
                 width: 100%;
             }
+
             a {
                 width: 100%;
             }
-            #container > a > div {
+
+            #container>a>div {
                 display: flex;
             }
-            #container > a p {
+
+            #container>a p {
                 font-family: "Roboto Slab", serif;
                 font-weight: 300;
             }
+
             #container a img {
-                width: 100px;;
+                width: 100px;
+                ;
             }
-            h2,p {
+
+            h2,
+            p {
                 margin: 0 0 0 10px;
             }
+
             #description {
                 display: none;
             }
+
             #logo-ksc {
                 left: 20px;
             }
+
             #logo-chubb {
                 right: 20px;
             }
         }
+
         @media only screen and (min-width: 601px) {
-            #container > a:hover {
+            #container>a:hover {
                 transform: scale(1.1);
             }
-            #container > a:hover > div {
+
+            #container>a:hover>div {
                 background-color: #007bff;
                 color: #fff;
             }
-            #container > a > div {
+
+            #container>a>div {
                 text-align: center;
             }
-            #container > a p {
+
+            #container>a p {
                 display: none;
             }
+            
+			#footer {
+				position: absolute;
+				bottom: 0;
+			}
         }
     </style>
 </head>
+
 <body>
     <h1>AFTER OFFICE ROYALE</h1>
     <div id="container">
-        <a href="roulette.html" onmouseover="showDescription('Selecciona una opción al azar. Útil para escoger participantes en actividades por turnos.')" onmouseout="clearDescription()">
+        <a href="roulette.html"
+            onmouseover="showDescription('Selecciona una opción al azar. Útil para escoger participantes en actividades por turnos.')"
+            onmouseout="clearDescription()">
             <div>
                 <img src="icon-roulette.png" width="200">
                 <div>
                     <h2>ROULETTE</h2>
-                    <p class="description">Selecciona una opción al azar. Útil para escoger participantes en actividades por turnos.</p>
+                    <p class="description">Selecciona una opción al azar. Útil para escoger participantes en actividades
+                        por turnos.</p>
                 </div>
             </div>
         </a>
-        <a href="flipping-cards.html" onmouseover="showDescription('Haz match o elige entre dos opciones. Útil para actividades dare or truth')" onmouseout="clearDescription()">
+        <a href="flipping-cards.html"
+            onmouseover="showDescription('Haz match o elige entre dos opciones. Útil para actividades dare or truth')"
+            onmouseout="clearDescription()">
             <div>
                 <img src="icon-flipping.png" width="200">
                 <div>
                     <h2>FLIPPING CARDS</h2>
-                    <p class="description">Haz match o elige entre dos opciones. Útil para actividades dare or truth.</p>
+                    <p class="description">Haz match o elige entre dos opciones. Útil para actividades dare or truth.
+                    </p>
                 </div>
             </div>
         </a>
-        <a href="slot-machine.html" onmouseover="showDescription('Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio - Redacta - Email - Bienvenida.')" onmouseout="clearDescription()">
+        <a href="slot-machine.html"
+            onmouseover="showDescription('Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio - Redacta - Email - Bienvenida.')"
+            onmouseout="clearDescription()">
             <div>
                 <img src="icon-slotmachine.png" width="200">
                 <div>
                     <h2>SLOT MACHINE</h2>
-                    <p class="description">Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio - Redacta - Email - Bienvenida.</p>
+                    <p class="description">Crea fórmulas al azar usando hasta cinco variables, por ejemplo: Sergio -
+                        Redacta - Email - Bienvenida.</p>
                 </div>
             </div>
         </a>
@@ -164,8 +212,14 @@
     <!-- Texto dinámico que muestra la descripción de cada juego -->
     <div id="description">Pasa el mouse sobre un juego para ver su descripción.</div>
 
-    <div id="logo-ksc"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png" width="127" height="30"></div>
-    <div id="logo-chubb"><img src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png" width="124" height="30"></div>
+    <div id="footer">
+        <div id="logo-ksc"><img
+                src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/a3b91312-0da3-4bb7-9b28-661ebba13594.png"
+                width="127" height="30" alt="" /></div>
+        <div id="logo-chubb"><img
+                src="https://image.e.chubb.com/lib/fe5e15707d63067e761d/m/1/d107dbdb-9034-4e02-a4e8-6b13c1921b8c.png"
+                width="124" height="30" alt="" /></div>
+    </div>
 
     <script>
         function showDescription(text) {
@@ -176,4 +230,5 @@
         }
     </script>
 </body>
+
 </html>
